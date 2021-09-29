@@ -57,12 +57,12 @@
 | 登录 | /api/user/login | post |  | postData中有用户名和密码 |
 
 ### 模块设计
-代码架构一直推崇“高内聚低耦合”，模块化的思想提升了开发效率，方便复用和维护。所以模块的设计也是必要的。
+代码架构一直推崇“高内聚低耦合”，模块化的思想提升了开发效率，方便复用和维护。要设计模块就必须了解MVC和MVVM等设计模式。首先就是基础的服务层，然后扩展至判断输入参数的路由模块，而index.js类似一个入口或者是执行的模块，用于执行服务的回调以及到路由的回参等等。
 
 以下就是项目基础结构设计：
 
 ```
-├─index.js(主入口模块，处理服务返回的值)
+├─index.js(主入口模块，配置了许多基本设置)
 ├─package-lock.json
 ├─package.json
 ├─src
@@ -75,3 +75,25 @@
 > 以上树形目录生成工具：[npm - treer](https://www.npmjs.com/package/treer)
 
 ## 4-7 开发路由（博客列表路由） 
+可以看出来，新建了model和controller目录。这两个模块的功能是什么呢？resModel.js是重新将数据整理成返回失败和返回成功两种范式，controller下的blog.js专注的是数据，根据不同的请求方法和参数，解析查询数据库返回对应的数据（此处只是返回假数据）。
+
+```
+├─index.js
+├─package-lock.json
+├─package.json
+├─src
+|  ├─router
+|  |   ├─blog.js
+|  |   └user.js
+|  ├─model(模型层)
+|  |   └resModel.js(最终返回的数据模型)
+|  ├─controller(控制器层)
+|  |     └blog.js
+├─bin
+|  └www.js
+```
+> querystring模块即将被弃用，我们可以使用URLSearchParams
+https://developer.mozilla.org/zh-CN/docs/Web/API/URLSearchParams
+
+## 4-8 开发路由（博客详情路由） 
+[fs文件系统读取多个本地资源](./4-8/promise-test/index.js)
