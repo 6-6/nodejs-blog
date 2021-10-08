@@ -43,6 +43,8 @@
         "dev": "cross-env NODE_ENV=dev nodemon ./bin/www.js", //NODE_ENV=dev代表着本地的开发环境
         "prd": "cross-env NODE_ENV=production nodemon ./bin/www.js" //NODE_ENV=production代表线上正式生产环境
     ```
+4. **运行项目：**
+    在项目根目录下运行```npm run dev```即可运行项目
 
 ## 4-6 初始化路由  
 ### 接口设计
@@ -51,7 +53,7 @@
 | ---- | ---- | ---- | ---- | ---- |
 | 获取博客列表 | /api/blog/list | get | author,keyword | 参数为空的话，则不进行查询过滤 |
 | 获取一篇博客的内容 | /api/blog/detail | get | id |  |
-| 新增一篇博客 | /api/blog/new | post | | post中有新增的信息 |
+| 新增一篇博客 | /api/blog/new | post | title,content | postData中有新增的信息 |
 | 更新一篇博客 | /api/blog/update | post | id | postData中有更新的内容 |
 | 删除一篇博客 | /api/blog/del | post | id |  |
 | 登录 | /api/user/login | post |  | postData中有用户名和密码 |
@@ -95,5 +97,44 @@
 > querystring模块即将被弃用，我们可以使用URLSearchParams
 https://developer.mozilla.org/zh-CN/docs/Web/API/URLSearchParams
 
+测试新建博客的功能，实用工具postman，将地址栏中输入：http://localhost:8000/api/blog/list?author=James&keyword=title1
+
+返回参数：
+```JSON
+{
+    "data": [
+        {
+            "id": 1,
+            "title": "标题A",
+            "content": "内容A",
+            "createTime": 1546610491112,
+            "author": "张三"
+        },
+        {
+            "id": 2,
+            "title": "标题B",
+            "content": "内容B",
+            "createTime": 15466105224373,
+            "author": "李四"
+        }
+    ],
+    "error": 0
+}
+```
+
+以上例子是测试JSON数据，不经过数据库。以下的路由都可以这样测试，通过示例了解程序是如何进行的。
+
 ## 4-8 开发路由（博客详情路由） 
+同上一章节的方式，添加一个获取博客详情的路由
+
 [fs文件系统读取多个本地资源](./4-8/promise-test/index.js)
+
+## 4-9 开发路由（处理POSTDATA） 
+### 新增功能：
+index.js > getPostData()方法，用于处理post data，然后将post data传入处理路由的方法中
+
+## 4-10 开发路由（新建和更新博客路由） 
+**问题：** 发现postman的一个bug，当我使用http://localhost:8000/api/blog/update测试时，发现返回的结果是http://localhost:8000/api/blog/list，反复进行验证确实代码没写错。
+**解决：** 全部关闭再次重启postman，然后就好了（重启大法好）。
+
+## 4-11 开发路由（删除博客路由和登录路由） 
