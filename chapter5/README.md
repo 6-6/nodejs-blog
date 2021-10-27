@@ -94,3 +94,8 @@ update users set realname='李四2' where username='lisi'	Error Code: 1175. You 
 2. 快速初始化npm项目```npm init -y```，新建文件index.js
 3. 安装mysql模块到项目本地环境```npm i mysql --registry=https://registry.npmmirror.com```
 4. [连接数据库并操作](./5-4/mysql-test/index.js)
+
+## 5-5 nodejs链接mysql做成工具
+每次我们都需要通过mysql语句来操作数据库，于是就需要形成一个方法。通过promise构造函数，创建一个实例，在实例中传递mysql语句操作数据库，利用异步的特性等待结果的返回。[查看示例](./5-5/blog-1/src/db/mysql.js)
+
+## 5-6 API对接mysql（博客列表）
