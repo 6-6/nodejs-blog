@@ -18,7 +18,7 @@
 **解决：** 缺少C++支持，下载安装[Microsoft Visual C++](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)即可
 
 ## 5-2 数据库操作（创建和增、删、查）
-启动数据库服务，然开始打开workbenck，登陆数据库
+启动数据库服务，然开始打开workbenck，登陆数据库（请查阅mysql基本命令）
 
 1. 创建库
 ![](http://kodbox.taros.xyz/?explorer/share/fileOut&shareID=7cgTZGhw&path=%7BshareItemLink%3A7cgTZGhw%7D%2F)
@@ -96,6 +96,20 @@ update users set realname='李四2' where username='lisi'	Error Code: 1175. You 
 4. [连接数据库并操作](./5-4/mysql-test/index.js)
 
 ## 5-5 nodejs链接mysql做成工具
+首先要安装mysql的npm包```npm install mysql --save```，
 每次我们都需要通过mysql语句来操作数据库，于是就需要形成一个方法。通过promise构造函数，创建一个实例，在实例中传递mysql语句操作数据库，利用异步的特性等待结果的返回。[查看示例](./5-5/blog-1/src/db/mysql.js)
 
 ## 5-6 API对接mysql（博客列表）
+router > blog.js 获取路由地址和请求参数，并调用controller > blog.js，处理数据的getList(author, keyword) 方法，该方法会通过sql语句查询数据库的数据并返回（注意这里的返回都是promise方法）。
+
+通过层层嵌套，我们可以学习其原理，在实际工作可能会使用封装好的方法，这部分逻辑就无需关心了。
+
+分别指定一个无参数和参数author的get请求，然后观察其结果是否如预期
+```
+http://localhost:8000/api/blog/list
+http://localhost:8000/api/blog/list?author=zhangsan&keyword=标题A
+```
+
+通过以上例子可以尝试自己手写，我提前将获取博客详情的代码也写好，可以看看下一章是否有新的知识点。
+
+## 5-7 API对接mysql（博客详情和新建）

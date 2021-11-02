@@ -51,7 +51,7 @@ const serverHandle = (req, res) => {
       blogResult.then(blogData => {    
         res.end(JSON.stringify(blogData))      
       })
-      return1
+      return
     }
 
     //处理user路由

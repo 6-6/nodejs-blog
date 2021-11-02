@@ -25,6 +25,6 @@ if(env === 'production'){
   }
 }
 
-modules.exports = {
+module.exports = {
   MYSQL_CONF
 }

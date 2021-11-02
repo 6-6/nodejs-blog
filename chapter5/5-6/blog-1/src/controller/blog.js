@@ -18,14 +18,16 @@ const getList = (author, keyword) => {
 }
 
 const getDetail = (id) => {
-  //先返回假数据
-  return {
-    id: 1,
-    title: '标题A',
-    content: '内容A',
-    createTime: 1546610491112,
-    author: 'zhangsan'
+  let sql = `select * from blogs where 1=1 `//这里的1=1是为了占位，防止后面的语句不执行报错
+
+  if(id){
+    sql += `and id='${id}' `
   }
+
+  sql += `order by createtime desc;`
+
+  // 返回的 promise
+  return exec(sql)
 }
 
 const newBlog = (blogData = {}) => {

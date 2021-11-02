@@ -9,7 +9,7 @@ const { SuccessModel, ErrorModel } = require('../model/resModel')
 
 const handleBlogRouter = (req, res)=>{
   const method = req.method // GET POST
-  const id = req.query.id
+  const id = req.query.get('id')
 
   //获取博客列表
   if(method === 'GET' && req.path === '/api/blog/list'){
@@ -24,9 +24,11 @@ const handleBlogRouter = (req, res)=>{
 
   //获取博客详情
   if(method === 'GET' && req.path === '/api/blog/detail'){
-    const data = getDetail(id) 
-
-    return new SuccessModel(data)
+    const result = getDetail(id) 
+    
+    return result.then(listData => {
+      return new SuccessModel(listData)
+    })
   }
 
   //新建一篇博客
