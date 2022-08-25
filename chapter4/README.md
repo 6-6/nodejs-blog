@@ -46,6 +46,31 @@
 4. **运行项目：**
     在项目根目录下运行```npm run dev```即可运行项目
 
+### 结构拆分
+这里拆分了两个文件，`www.js` 和 `index.js` ，前者是作为server服务，比如`启动服务`和`监听端口`等，后者则是业务代码。模块化的思想有利于开发大型应用。
+### mock测试
+在这个示例中，我添加了非视频教程中的功能。主要是平时开发当中最基础的做法，需要后端提供接口。可以通过node快速搭建服务，返回一些测试数据。（实际开发中可以用postman或者其它应用）个人还是比较喜欢用这样的方式，可以通过对比测试来验证一些想法。
+
+`index.html` 和 `main.js`的文件，这里主要是模拟请求接口。
+### 问题解答：
+1. writeHead 和 setHeader区别？
+```javascript
+request.setHeader(name, value)
+
+
+//参数1：必选，http状态码
+//参数2：可选，状态描述
+//参数3：可选，告诉浏览器我发给你的数据是什么类型的
+response.writeHead(statusCode[, statusMessage][, headers])
+```
+**总结：**
+* writeHead 只能被调用一次，可以同时设置多个属性。
+
+* setHeader 能设置一个属性，可以调用多次。
+
+* writeHead 且必须在 response.end() 被调用之前调用。
+
+* response.setHeader() 设置的响应头会与 response.writeHead() 设置的响应头合并，且 response.writeHead() 的优先。
 ## 4-6 初始化路由  
 ### 接口设计
 
