@@ -17,17 +17,23 @@
 **问题：** 报错Mysql workbench requires the visual C++ 2019 redistributable package
 **解决：** 缺少C++支持，下载安装[Microsoft Visual C++](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)即可
 
+**问题：** Navicat 连接 mysql8 报错：2059 - Authentication plugin ‘caching_sha2_password‘ cannot be loaded:xx
+**解决：** 
+1. 首先进入 mysql 
+	```mysql -u root -p```
+2. 选择数据库
+	```use mysql;```
+3. 更改密码加密方式，如果是远程连接，这里的 localhost 修改成为 %
+	```ALTER USER 'root'@'localhost' IDENTIFIED BY 'password' PASSWORD EXPIRE NEVER; ```
+4. 更新用户密码
+	```ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'; ```
+5. 刷新权限
+	```FLUSH PRIVILEGES;```
+
+6. 删除之前旧的链接，再次新建的时候密码改为了password
+
 ## 5-2 数据库操作（创建和增、删、查）
 启动数据库服务，然开始打开workbenck，登陆数据库（请查阅mysql基本命令）
-
-1. 创建库
-![](http://kodbox.taros.xyz/?explorer/share/fileOut&shareID=7cgTZGhw&path=%7BshareItemLink%3A7cgTZGhw%7D%2F)
-
-2. 选择create table，创建表
-![](http://kodbox.taros.xyz/?explorer/share/fileOut&shareID=7cgdZXsA&path=%7BshareItemLink%3A7cgdZXsA%7D%2F)
-
-3. 填写表名，添加列名和相关数据
-![](http://kodbox.taros.xyz/?explorer/share/fileOut&shareID=7cgfwQeA&path=%7BshareItemLink%3A7cgfwQeA%7D%2F)
 
 | Column Name | Datatype | PK | NN | AI | Default |
 | -- | -- | -- | -- | -- | -- |
